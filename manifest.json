@@ -2,8 +2,8 @@
   "name": "YouTube Video and Audio Downloader (Dev Edt.)",
   "short_name": "iaextractor",
   "description": "__MSG_appDesc__",
-  "author": "InBasic",
-  "version": "0.7.2",
+  "author": "Ray.Lothian",
+  "version": "0.7.3",
   "manifest_version": 2,
   "default_locale": "en",
   "permissions": [
@@ -29,7 +29,7 @@
   "browser_action": {
     "default_icon": {
       "16": "/data/icons/16.png",
-      "32": "/data/icons/512.png",
+      "32": "/data/icons/32.png",
       "64": "/data/icons/64.png",
       "128": "/data/icons/128.png",
       "256": "/data/icons/256.png",
@@ -54,7 +54,7 @@
   "homepage_url": "https://github.com/inbasic/iaextractor/",
   "icons": {
     "16": "/data/icons/16.png",
-    "32": "/data/icons/512.png",
+    "32": "/data/icons/32.png",
     "64": "/data/icons/64.png",
     "128": "/data/icons/128.png",
     "256": "/data/icons/256.png",
@@ -63,5 +63,11 @@
   "web_accessible_resources": [
     "/data/inject/download.svg",
     "/data/inject/panel/index.html"
-  ]
+  ],
+  "applications": {
+    "gecko": {
+      "id": "{f73df109-8fb4-453e-8373-f59e61ca4da3}",
+      "strict_min_version": "52.0"
+    }
+  }
 }

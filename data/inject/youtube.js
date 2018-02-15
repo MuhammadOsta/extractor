@@ -125,7 +125,7 @@ youtube.size = (url, pretify) => {
 };
 
 youtube.getFormats = videoID => {
-  console.log('getFormats', videoID);
+  //console.log('getFormats', videoID);
   return youtube.fetch('https://www.youtube.com/watch?v=' + videoID).then(content => {
     const url_encoded_fmt_stream_map = /url_encoded_fmt_stream_map":\s*"([^"]*)/.exec(content);
     const adaptive_fmts = /adaptive_fmts"\:\s*"([^"]*)/.exec(content);
@@ -143,7 +143,7 @@ youtube.getFormats = videoID => {
 };
 
 youtube.getExtra = videoID => {
-  console.log('getExtra', videoID);
+  //console.log('getExtra', videoID);
   function quary(str) {
     var temp = {};
     var vars = str.split('&');
@@ -174,7 +174,7 @@ youtube.getExtra = videoID => {
 };
 
 youtube.getInfo = videoID => {
-  console.log('getInfo', videoID);
+  //console.log('getInfo', videoID);
   return Promise.all([
     youtube.getFormats(videoID).catch(() => {}),
     youtube.getExtra(videoID).catch(() => {})
@@ -217,7 +217,7 @@ youtube.decipher = (ccode, s = '') => {
 
 /* Appending itag 141 to info */
 youtube.findOtherItags = (info, ccode) => {
-  console.log('findOtherItags', ccode);
+  //console.log('findOtherItags', ccode);
   let dashmpd = info.dashmpd;
 
   if (dashmpd.indexOf(/signature/) === -1) {
@@ -243,7 +243,7 @@ youtube.findOtherItags = (info, ccode) => {
             info.formats.push(obj);
           }
           else {
-            console.log(`itag=${itag} is skipped; we are not supporting segmentation`);
+            //console.log(`itag=${itag} is skipped; we are not supporting segmentation`);
           }
         }
       }
@@ -263,7 +263,7 @@ youtube.findOtherItags = (info, ccode) => {
 };
 
 youtube.extractFormats = (info, ccode) => {
-  console.log('extractFormats');
+  //console.log('extractFormats');
   const objs = [];
   [info.url_encoded_fmt_stream_map, info.adaptive_fmts]
     .filter(a => a).join(',').split(',')
@@ -323,7 +323,7 @@ youtube.extractFormats = (info, ccode) => {
 };
 
 youtube.doCorrections = (info, ccode) => {
-  console.log('doCorrections');
+  //console.log('doCorrections');
   info.formats.forEach((o, i) => {
     info.formats[i].url = o.url.replace(/&s=([^&]*)/, (a, s) => '&signature=' + youtube.decipher(ccode, s));
   });
@@ -334,7 +334,7 @@ youtube.doCorrections = (info, ccode) => {
  * inspired from https://github.com/gantt/downloadyoutube
  */
 youtube.signatureLocal = info => {
-  console.log('signatureLocal');
+  //console.log('signatureLocal');
   function doMatch(text, regexp) {
     const matches = text.match(regexp);
     return matches ? matches[1] : null;
@@ -352,7 +352,8 @@ youtube.signatureLocal = info => {
       doMatch(content, /\.set\s*\("signature"\s*,\s*([a-zA-Z0-9_$][\w$]*)\(/) ||
       doMatch(content, /\.sig\s*\|\|\s*([a-zA-Z0-9_$][\w$]*)\(/) ||
       doMatch(content, /\.signature\s*=\s*([a-zA-Z_$][\w$]*)\([a-zA-Z_$][\w$]*\)/) ||
-      doMatch(content, /set\("signature",\s([a-zA-Z0-9_$][\w$]*)\(/);
+      doMatch(content, /set\("signature",\s([a-zA-Z0-9_$][\w$]*)\(/) ||
+      doMatch(content, /signature.*\.set\([^,],\s*([a-zA-Z0-9_$]*)\(/);
 
     if (sigFunName === null) {
       throw Error('signatureLocal: Cannot resolve signature;2');
@@ -462,7 +463,7 @@ youtube.signatureLocal = info => {
 };
 
 youtube.verify = (info, prefs) => {
-  console.log('verify', info);
+  //console.log('verify', info);
   const isEncrypted = info.formats[0].s;
   const doUpdate = isEncrypted && (!prefs.player || !prefs.ccode || info.player !== prefs.player);
 
@@ -530,7 +531,6 @@ youtube.connrections = (info, pattern) => {
   });
   return info;
 };
-console.log(9);
 youtube.perform = videoID => new Promise((resolve, reject) => {
   chrome.storage.local.get({
     ccode: ['r', 'r'],

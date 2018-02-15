@@ -16,12 +16,11 @@
     background-image: url('moz-extension://__MSG_@@extension_id__/data/inject/download.svg') !important;
   }
 }
-.iaextractor-new-button {
-  background-image: url('chrome-extension://__MSG_@@extension_id__/data/inject/download.svg');
+.iaextractor-new-button yt-icon {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/data/inject/download.svg') !important;
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 16px 16px;
-  width: 36px;
+  background-size: 16px 16px !important;
   cursor: pointer;
 }
 @-moz-document url-prefix() {
